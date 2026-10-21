@@ -30,3 +30,20 @@
 		# 尝试查看 .bss 的实际字节
 		objdump -s --section=.bss elf_example.o
    ```
+
+### 3.3 挖掘 SimpleSection.o
+
+1. 利用交叉编译，生成 32 位 x86 平台 ELF 文件：
+```bash
+clang --target=i386-unknown-linux-gnu -c simplesection.c -o simplesection.o
+```
+2. 使用 `gnu objdump` 查看反汇编（llvm 的输出会有较大差别）：
+   ![[simple.png]]
+	- `CONTENTS ALLOC` 等内容表示各个段的属性，`CONTENTS` 表示这个段在文件中存在内容。
+
+3. 根据 size 和位置可以绘制出文件结构：
+   ![[file.png]]
+4. 可以使用 `objcopy` 工具来将一个二进制文件作为目标文件中的一个段。
+5. 可以使用 `__attribute__((section("FOO")))` 指定变量所处的段。
+
+### 3.4 ELF 文件结构描述

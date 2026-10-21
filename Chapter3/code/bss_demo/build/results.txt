@@ -1,0 +1,10 @@
+All sizes in bytes; no debug information.
+case          .bss   BSS payload   file   .symtab   .strtab
+array_small      40             0    784        72        82
+array_large   40000             0    784        72        82
+vars_one          4             0    784        72        86
+vars_many        40             0   1064       288       149
+
+PASS: Enlarging the array increased BSS without increasing file size.
+PASS: Adding variables increased file size through metadata.
+PASS: All four BSS sections are SHT_NOBITS and have no file payload.
